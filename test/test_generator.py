@@ -3,16 +3,16 @@
 import unittest
 import subprocess
 
-import xkcd_password
+from correcthorse import generate_wordlist, generate_xkcdpassword
 
 
 class XkcdPasswordTests(unittest.TestCase):
     def setUp(self):
-        self.wordlist_full = xkcd_password.generate_wordlist(
-            wordfile='3esl.txt',
+        self.wordlist_full = generate_wordlist(
+            wordfile='correcthorse/3esl.txt',
             min_length=5,
             max_length=8,)
-        self.wordlist_small = xkcd_password.generate_wordlist(
+        self.wordlist_small = generate_wordlist(
             wordfile='test/wordlist.txt',
             valid_chars='[a-z]')
 
@@ -24,7 +24,7 @@ class XkcdPasswordTests(unittest.TestCase):
 
     def test_acrostic(self):
         target = ["factual", "amazing", "captain", "exactly"]
-        result = xkcd_password.generate_xkcdpassword(
+        result = generate_xkcdpassword(
             self.wordlist_small,
             acrostic="face")
         self.assertEquals(result.split(), target)
@@ -32,8 +32,8 @@ class XkcdPasswordTests(unittest.TestCase):
     def test_commandlineCount(self):
         count = 5
         result = subprocess.check_output([
-            "python", "xkcd_password.py",
-            "-w", "3esl.txt",
+            "python", "correcthorse/xkcd_password.py",
+            "-w", "correcthorse/3esl.txt",
             "-c", str(count)
         ])
         self.assertTrue(result.count("\n"), count)
@@ -42,7 +42,7 @@ class XkcdPasswordTests(unittest.TestCase):
         tdelim = "_"
         target = tdelim.join(["factual", "amazing", "captain", "exactly"])
         # use an acrostic for simpler target check
-        result = xkcd_password.generate_xkcdpassword(
+        result = generate_xkcdpassword(
             self.wordlist_small,
             acrostic="face",
             delim=tdelim)
