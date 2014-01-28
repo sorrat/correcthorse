@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import subprocess
+
 import xkcd_password
 
 
@@ -10,7 +13,7 @@ class XkcdPasswordTests(unittest.TestCase):
             min_length=5,
             max_length=8,)
         self.wordlist_small = xkcd_password.generate_wordlist(
-            wordfile='tests/test_list.txt',
+            wordfile='test/wordlist.txt',
             valid_chars='[a-z]')
 
     def test_loadwordfile(self):
@@ -28,8 +31,11 @@ class XkcdPasswordTests(unittest.TestCase):
 
     def test_commandlineCount(self):
         count = 5
-        result = subprocess.check_output(
-            ["python", "xkcd_password.py", "-w", "3esl.txt", "-c", str(count)])
+        result = subprocess.check_output([
+            "python", "xkcd_password.py",
+            "-w", "3esl.txt",
+            "-c", str(count)
+        ])
         self.assertTrue(result.count("\n"), count)
 
     def test_delim(self):
@@ -44,5 +50,4 @@ class XkcdPasswordTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(XkcdPasswordTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main()
