@@ -3,7 +3,7 @@
 import unittest
 import subprocess
 
-from correcthorse import generate_wordlist, generate_xkcdpassword
+from correcthorse import generate_wordlist, generate_xkcdpassword, correcthorse
 
 
 class XkcdPasswordTests(unittest.TestCase):
@@ -47,6 +47,9 @@ class XkcdPasswordTests(unittest.TestCase):
             acrostic="face",
             delim=tdelim)
         self.assertEquals(result, target)
+
+    def test_wrapper_correcthorse(self):
+        self.assertTrue(correcthorse())
 
 
 if __name__ == '__main__':
