@@ -7,18 +7,18 @@ from .xkcd_password import generate_wordlist, generate_xkcdpassword
 this_dir = dirname(abspath(__file__))
 
 
-def correcthorse(wordfile='2of12.txt',
+def correcthorse(wordfile='common_english.txt',
                  word_min_length=4,
-                 word_max_length=9,
+                 word_max_length=20,
                  n_words=4,
                  interactive=False,
                  acrostic=False,
                  delim=""):
     """
     Wrapper around `generate_xkcdpassword`.
-    Generate password using file '2of12.txt' or '3esl.txt'
-    included in the package.
-    (Files downloaded from http://wordlist.sourceforge.net/)
+    Generate password using one of included files in the package:
+    common_english.txt, 2of12.txt or 3esl.txt.
+    (Last two downloaded from http://wordlist.sourceforge.net/)
     """
     mywords = generate_wordlist(
         wordfile=join(this_dir, wordfile),
